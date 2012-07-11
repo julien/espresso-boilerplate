@@ -7,5 +7,9 @@ A little boilerplate you can use to create [Express](http://www.expressjs.com) a
 2. Run `npm install` command line inside the project directory
 3. Run `coffee app.coffee` and you'r done! just open a browser and type `http://localhost:3000`
 
+## Authors
+- [Julien Castelain](http://twitter.com/__juju__)
+- [Denis Ciccale](http://twitter.com/tdecs)
+
 ## License
 See [LICENSE.txt](https://raw.github.com/dciccale/express-coffee-bp/master/LICENSE.txt)
