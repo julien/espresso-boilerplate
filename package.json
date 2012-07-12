@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "2.5.11",
-    "coffee-script": ">=1.3.3",
+    "express": "*",
+    "coffee-script": "*",
+    "stylus": "*",
+    "jade": "*",
     "uglify": "*",
-    "stylus": ">=0.22.6",
-    "jade": ">=0.26.3"
     }
 }
