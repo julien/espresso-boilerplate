@@ -13,11 +13,11 @@ app.configure ->
   app.use express.static __dirname + '/public'
 
 # watch and compile coffeescript source files
-child_process.exec 'coffee -o public/js -w -c coffee', (error, stdout, stderr) ->
+child_process.exec './node_modules/coffee-script/bin/coffee -o public/js -w -c coffee', (error, stdout, stderr) ->
   console.log "error #{error}" if error
 
 # watch and compile stylus source files
-child_process.exec 'stylus -w -c styl -o public/css', (error, stdout, stderr) ->
+child_process.exec './node_modules/stylus/bin/stylus -w -c styl -o public/css', (error, stdout, stderr) ->
   console.log "error #{error}" if error
 
 # routes
