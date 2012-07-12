@@ -1,6 +1,6 @@
 # Espresso Boilerplate
 
-Is a little boilerplate you can use to create [Express](http://www.expressjs.com) apps along with [CoffeeScript](http://www.coffeescript.org), [Jade](http://jade-lang.com/) and [Stylus](http://learnboost.github.com/stylus).
+[Espresso](http://www.espressoboilerplate.org) is a little boilerplate you can use to create [Express](http://www.expressjs.com) apps along with [CoffeeScript](http://www.coffeescript.org), [Jade](http://jade-lang.com/) and [Stylus](http://learnboost.github.com/stylus).
 
 ## How to
 1. Download the zip file and unzip it
