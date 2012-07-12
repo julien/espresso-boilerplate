@@ -25,7 +25,6 @@ for s in ARGV
   m = rargs.exec s
   app.env = 'production' if m and m[0] and m[0].match rprod
 
-console.log app.env
 ### express configuration ###
 app.configure ->
   app.set 'views', __dirname + '/views'
@@ -77,5 +76,9 @@ app.listen 3000, ->
   console.log '|______|___/ .__/|_|  \\___||___/___/\\___/ '
   console.log '           | |                            '
   console.log '           |_|                            '
-  console.log "Server listening on port %d, [%s]", app.address().port, app.env ? 'dev'
+  console.log '\n'
+  console.log "Server listening on port %d", app.address().port
+  
+
+
 
