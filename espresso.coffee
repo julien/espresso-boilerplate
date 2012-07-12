@@ -1,5 +1,4 @@
 child_process = require 'child_process'
-uglify = require 'uglify-js'
 fs = require 'fs'
 isWindows = process.platform.match /win/
 
