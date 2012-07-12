@@ -33,7 +33,7 @@ ensureIsFile = (f, cb) ->
       cb(f) if cb and typeof cb is 'function'
 
 doMinify = (f) ->
-  child_process.exec "uglifyjs --overwrite #{f}", (err, stdout, stderr) ->
+  child_process.exec "./node_modules/.bin/uglifyjs --overwrite #{f}", (err, stdout, stderr) ->
     console.log "error: #{err}" if err
 
 # minify with uglifyjs
@@ -46,12 +46,12 @@ initMinification = ->
 
 # watch and compile coffeescript source files
 ###
-child_process.exec 'coffee -o public/js -w -c coffee', (error, stdout, stderr) ->
+child_process.exec './node_modules/.bin/coffee -o public/js -w -c coffee', (error, stdout, stderr) ->
 =======
-child_process.exec './node_modules/coffee-script/bin/coffee -o public/js -w -c coffee', (error, stdout, stderr) ->
+child_process.exec './node_modules/.bin/coffee -o public/js -w -c coffee', (error, stdout, stderr) ->
   console.log "error #{error}" if error
 ###
-coffee = spawn 'coffee', ['-o', './public/js',  '-w',  '-c',  './coffee']
+coffee = spawn './node_modules/.bin/coffee', ['-o', './public/js',  '-w',  '-c',  './coffee']
 coffee.stdout.on 'data', (data) ->
   initMinification() if app.env == 'production'
 
@@ -59,7 +59,7 @@ coffee.on 'exit', (code) ->
   console.log "coffee watcher exited with code: #{code}"
 
 # watch and compile stylus source files
-child_process.exec './node_modules/stylus/bin/stylus -w -c styl -o public/css', (error, stdout, stderr) ->
+child_process.exec './node_modules/.bin/stylus -w -c styl -o public/css', (error, stdout, stderr) ->
   console.log "error #{error}" if error
 
 # routes
