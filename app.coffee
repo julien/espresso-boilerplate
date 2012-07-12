@@ -4,7 +4,7 @@ express = require 'express'
 uglify = require 'uglify-js'
 fs = require 'fs'
 isWindows = process.platform.match /win/
-node_modules_path = if isWindows then 'call node_modules\\.bin\\' else './node_modules/bin/'
+node_modules_path = if isWindows then 'call node_modules\\.bin\\' else './node_modules/.bin/'
 exec = (cmd) ->
   std = child_process.exec cmd
   std.stderr.on 'data', (error) ->
