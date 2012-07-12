@@ -15,6 +15,7 @@ core =
     std.stderr.on 'data', (error) ->
       console.log "error: #{error}"
     return std
+
   minify: ->
       fs.readdir 'public/js', (err, data) ->
         throw err if err
@@ -22,6 +23,7 @@ core =
         for f in data
           ensureIsFile "public/js/#{f}", (f) ->
             core.exec core.node_modules_path + "uglifyjs --overwrite #{f}"
+
   logEspresso: ->
     console.log ' ______                                   '
     console.log '|  ____|                                  '
