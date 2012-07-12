@@ -6,8 +6,10 @@
 1. Download the zip file and unzip it
 2. Run `npm install` command line inside the project directory
 3. Run `coffee app.coffee`  and you'r done! just open a browser and type `http://localhost:3000`
-   *Optional:*
-   Run with `-p` or `--production` to compile the generated CoffeeScript
+
+# Minification
+JS minification is done with [UglifyJS](https://github.com/mishoo/UglifyJS)
+Run Espresso with `coffee app.coffee -p` to minify the generated CoffeeScript
 
 
 ## Todo
