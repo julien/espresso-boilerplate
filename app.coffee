@@ -22,7 +22,7 @@ child_process.exec 'stylus -w -c styl -o public/css', (error, stdout, stderr) ->
 
 # routes
 app.get '/', (req, res) ->
-  res.render 'index', { title : 'Express Coffee Boilerplate' }
+  res.render 'index', { title : 'Espresso Boilerplate' }
 
 # start server
 app.listen 3000, -> console.log "Express server listening on port %d", app.address().port
