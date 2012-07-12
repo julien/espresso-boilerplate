@@ -1,6 +1,6 @@
-# Express CoffeeScript Boilerplate
+# Espresso Boilerplate
 
-A little boilerplate you can use to create [Express](http://www.expressjs.com) apps along with [CoffeeScript](http://www.coffeescript.org), [Jade](http://jade-lang.com/) and [Stylus](http://learnboost.github.com/stylus).
+Is a little boilerplate you can use to create [Express](http://www.expressjs.com) apps along with [CoffeeScript](http://www.coffeescript.org), [Jade](http://jade-lang.com/) and [Stylus](http://learnboost.github.com/stylus).
 
 ## How to
 1. Download the zip file and unzip it
@@ -12,4 +12,4 @@ A little boilerplate you can use to create [Express](http://www.expressjs.com) a
 - [Denis Ciccale](http://twitter.com/tdecs)
 
 ## License
-See [LICENSE.txt](https://raw.github.com/dciccale/express-coffee-bp/master/LICENSE.txt)
+See [LICENSE.txt](https://raw.github.com/dciccale/espresso-boilerplate/master/LICENSE.txt)
