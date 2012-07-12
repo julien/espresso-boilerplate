@@ -5,12 +5,20 @@
 ## How to
 1. Download the zip file and unzip it
 2. Run `npm install` command line inside the project directory
-3. Run `coffee app.coffee` and you'r done! just open a browser and type `http://localhost:3000`
+3. Run `coffee app.coffee`  and you'r done! just open a browser and type `http://localhost:3000`
+   *Optional:*
+   Run with `-p` or `--production` to compile the generated CoffeeScript
+
+
+## Todo
+1. Create an NPM module *in progress*
+
 
 ## Authors
 - [Julien Castelain](http://twitter.com/__juju__)
 - [Denis Ciccale](http://twitter.com/tdecs)
 - [Sergio Ruiz] (http://twitter.com/serginator)
+
 
 ## License
 See [LICENSE.txt](https://raw.github.com/dciccale/espresso-boilerplate/master/LICENSE.txt)
