@@ -77,4 +77,5 @@ app.listen 3000, ->
   console.log '|______|___/ .__/|_|  \\___||___/___/\\___/ '
   console.log '           | |                            '
   console.log '           |_|                            '
-  console.log "Server listening on port %d", app.address().port
+  console.log "Server listening on port %d, [%s]", app.address().port, app.env ? 'dev'
+
