@@ -18,14 +18,14 @@ app = express.createServer()
 
 ### parse args (- coffee and the filename) ###
 ARGV = process.argv[2..]
-rargs = /--\w+/
-rprod = /^--production/
+rargs = /-{1,2}\w+/
+rprod = /-{1,2}(p|production)/
 
 for s in ARGV
   m = rargs.exec s
   app.env = 'production' if m and m[0] and m[0].match rprod
 
-
+console.log app.env
 ### express configuration ###
 app.configure ->
   app.set 'views', __dirname + '/views'
