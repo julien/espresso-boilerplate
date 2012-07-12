@@ -1,14 +1,23 @@
 # TODO: put paths in constants
-
 # require modules
 child_process = require 'child_process'
 spawn = child_process.spawn
 express = require 'express'
 uglify = require 'uglify-js'
 fs = require 'fs'
+  
 
 # create express server
 app = express.createServer()
+
+# parse args (- coffee and the filename)
+ARGV = process.argv[2..]
+rargs = /--\w+/
+rprod = /^--production/
+
+for s in ARGV
+  m = rargs.exec s
+  app.env = 'production' if m and m[0] and m[0].match rprod
 
 # express configuration
 app.configure ->
@@ -58,5 +67,6 @@ app.get '/', (req, res) ->
   res.render 'index', { title : 'Espresso Boilerplate' }
 
 # start server
-app.listen 3000, -> console.log "Express server listening on port %d", app.address().port
+app.listen 3000, -> console.log "Express server listening on port %d, (env = %s)", app.address().port, app.env
+
 
