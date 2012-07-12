@@ -38,6 +38,8 @@ initMinification = ->
 # watch and compile coffeescript source files
 ###
 child_process.exec 'coffee -o public/js -w -c coffee', (error, stdout, stderr) ->
+=======
+child_process.exec './node_modules/coffee-script/bin/coffee -o public/js -w -c coffee', (error, stdout, stderr) ->
   console.log "error #{error}" if error
 ###
 coffee = spawn 'coffee', ['-o', './public/js',  '-w',  '-c',  './coffee']
@@ -48,12 +50,12 @@ coffee.on 'exit', (code) ->
   console.log "coffee watcher exited with code: #{code}"
 
 # watch and compile stylus source files
-child_process.exec 'stylus -w -c styl -o public/css', (error, stdout, stderr) ->
-  console.log "error #{error}" if err
+child_process.exec './node_modules/stylus/bin/stylus -w -c styl -o public/css', (error, stdout, stderr) ->
+  console.log "error #{error}" if error
 
 # routes
 app.get '/', (req, res) ->
-  res.render 'index', { title : 'Express Coffee Boilerplate' }
+  res.render 'index', { title : 'Espresso Boilerplate' }
 
 # start server
 app.listen 3000, -> console.log "Express server listening on port %d", app.address().port
