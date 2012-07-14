@@ -1,12 +1,48 @@
 {
-  "name": "application-name",
+  "author": {
+    "name": "Julien Castelain",
+    "email": "jcastelain@gmail.com",
+    "url": "http://punkscum.org"
+  },
+  "contributors": [{
+    "name": "Julien Castelain",
+    "email": "jcastelain@gmail.com",
+    "url": "http://punkscum.org"  
+  }, {
+    "name": "Denis Ciccale",
+    "email": "dciccale@gmail.com",
+    "url": "http://webdecs.wordpress.com/"
+  }],
+  "name": "espresso",
+  "description": "Espresso is a little boilerplate you can use to create Express apps along with CoffeeScript, Jade.",
   "version": "0.0.1",
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/julien/cstp.git"
+  },
+  "keywords": [
+    "coffeescript",
+    "express",
+    "jade",
+    "stylus",
+    "uglify"
+  ],
+  "main": "./lib/espresso.js",
+  "bin": {
+    "espresso": "./lib/espresso.js"
+  },
+  "preferGlobal": "true",
+  "scripts": {
+    "prepublish": "npm prune;cake build"
+  },
   "dependencies": {
-    "express": "*",
-    "coffee-script": "1.3.3",
-    "stylus": "*",
-    "jade": "*",
-    "uglify-js": "*"
-    }
+    "coffee-script": ">=1.3.3"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+
+  "homepage": "https://github.com/julien/espresso-boilerplate"
 }
