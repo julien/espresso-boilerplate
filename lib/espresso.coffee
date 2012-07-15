@@ -1,8 +1,6 @@
 #!/usr/bin/env coffee
-
 fs = require 'fs'
 os = require 'os'
-
 
 # script args
 args = process.argv.slice 2
@@ -29,7 +27,7 @@ tpl =
 
       for s in ARGV
         m = rargs.exec s
-        app.env = 'production' if m and m[0] and m[0].match rprod
+        app.settings.env = 'production' if m and m[0] and m[0].match rprod
 
       ### express configuration ###
       app.configure ->
@@ -42,7 +40,7 @@ tpl =
       ### watch coffeescript sources ###
       coffee = espresso.core.exec espresso.core.node_modules_path + 'coffee -o public/js -w -c coffee'
       coffee.stdout.on 'data', (data) ->
-        espresso.core.minify() if app.env == 'production'
+        espresso.core.minify() if app.settings.env == 'production'
 
 
       ### watch stylus sources ###
@@ -57,7 +55,7 @@ tpl =
       ### start server ###
       app.listen 3000, ->
         espresso.core.logEspresso()
-        console.log "Server listening on port %d", app.address().port
+        console.log "Server listening on port %d, %s", app.address().port, app.settings.env
     """
 
   espresso: """
@@ -88,7 +86,14 @@ tpl =
                 core.exec core.node_modules_path + 'uglifyjs --overwrite ' + f
 
       logEspresso: ->
-        console.log " "
+          console.log " ______                                   "
+          console.log "|  ____|                                  "
+          console.log "| |__   ___ _ __  _ __ ___  ___ ___  ___  "
+          console.log "|  __| / __| \'_ \\| \'__/ _ \\/ __/ __|/ _ \\ "
+          console.log "| |____\\__ \\ |_) | | |  __/\\__ \\__ \\ (_) |"
+          console.log "|______|___/ .__/|_|  \\___||___/___/\\___/ "
+          console.log "           | |                            "
+          console.log "           |_|                            "
 
     exports.core = core
   """
@@ -102,7 +107,7 @@ tpl =
         "preinstall": "npm install -g coffee-script"
       },
       "dependencies": {
-        "express": "*",
+        "express": "2.5.11",
         "coffee-script": "1.3.3",
         "stylus": "*",
         "jade": "*",
@@ -133,7 +138,7 @@ dirIsEmpty = (path, fn) ->
     fn(!files || !files.length) if isFunc fn
 
 mkdir = (path, fn) ->
-  fs.mkdir path, '0777', (err) ->
+  fs.mkdir path, (err) ->
     throw err if err and err.code != 'EEXIST'
     console.log "  create: #{path}"
     fn(path) if isFunc fn
@@ -163,7 +168,6 @@ createAppAt = (path) ->
     console.log "  dont forget to run cd #{path} && npm install"
     console.log ''
 
-
   mkdir "#{path}/public"
   mkdir "#{path}/public/css"
   mkdir "#{path}/public/img"
@@ -178,9 +182,21 @@ createAppAt = (path) ->
     write "#{path}/espresso.coffee", tpl.espresso
     write "#{path}/package.json", tpl.package
 
-# check if the destinatio path if empty
+printhelp = ->
+  console.log ''
+  console.log 'usage espresso "app name"'
+  console.log ''
+
+
+if path == '.'
+  printhelp()
+  return
+
+
+# check if the destination path if empty
 # if so create the app structure if not
 # prompt the user to confirm
+#
 dirIsEmpty path, (empty) ->
   if empty
     mkdir path, () ->

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 require('coffee-script');
-var espresso = require('../lib/espresso');
+require('../lib/espresso');
 
 
