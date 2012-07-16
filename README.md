@@ -3,10 +3,13 @@
 [Espresso](http://www.espressoboilerplate.org) is a little boilerplate you can use to create [Express](http://www.expressjs.com) apps along with [CoffeeScript](http://www.coffeescript.org), [Jade](http://jade-lang.com/) and [Stylus](http://learnboost.github.com/stylus).
 
 
-## How to
-1. Run `npm install -g espresso` to install espresso as an [NPM](http://www.npmjs.org) module
-2. Run `espresso APPNAME` command line to create a new application
-3. Run `cd APPNAME && npm install` to install the dependencies
+## Installation
+1. Run `npm install -g espresso-boilerplate` to install espresso as an [NPM](http://www.npmjs.org) module
+
+
+## First Espresso app
+1. Run `espresso APPNAME` to create a new project
+2. Run `cd APPNAME && npm install` to install the dependencies
 3. Run `coffee app.coffee` and you'r done! just open a browser and type `http://localhost:3000`
 
 
