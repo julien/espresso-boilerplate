@@ -13,7 +13,7 @@ tpl =
     """
       ### require modules ###
       express = require 'express'
-      espresso = require './espresso.coffee'
+      espresso = require('./espresso.coffee').core
 
       ### create express server ###
       app = express.createServer()
@@ -36,13 +36,13 @@ tpl =
 
 
       ### watch coffeescript sources ###
-      coffee = espresso.core.exec espresso.core.node_modules_path + 'coffee -o public/js -w -c coffee'
+      coffee = espresso.exec espresso.node_modules_path + 'coffee -o public/js -w -c coffee'
       coffee.stdout.on 'data', (data) ->
-        espresso.core.minify() if app.env == 'production'
+        espresso.minify() if app.env == 'production'
 
 
       ### watch stylus sources ###
-      espresso.core.exec espresso.core.node_modules_path + 'stylus -w -c styl -o public/css'
+      espresso.exec espresso.node_modules_path + 'stylus -w -c styl -o public/css'
 
 
       ### app routes ###
@@ -52,7 +52,7 @@ tpl =
 
       ### start server ###
       app.listen 3000, ->
-        espresso.core.logEspresso()
+        espresso.logEspresso()
         console.log "Server listening on port %d, %s", app.address().port, app.env
     """
 
