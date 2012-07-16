@@ -1,6 +1,5 @@
 #!/usr/bin/env coffee
 fs = require 'fs'
-os = require 'os'
 
 # script args
 args = process.argv.slice 2
@@ -8,13 +7,13 @@ path = '.'
 app = args[0]
 path = app if app
 
-# templates
+# Espresso app files
 tpl =
   app:
     """
       ### require modules ###
       express = require 'express'
-      espresso = require './espresso.coffee'
+      espresso = require('./espresso.coffee').core
 
       ### create express server ###
       app = express.createServer()
@@ -37,13 +36,13 @@ tpl =
 
 
       ### watch coffeescript sources ###
-      coffee = espresso.core.exec espresso.core.node_modules_path + 'coffee -o public/js -w -c coffee'
+      coffee = espresso.exec espresso.node_modules_path + 'coffee -o public/js -w -c coffee'
       coffee.stdout.on 'data', (data) ->
-        espresso.core.minify() if app.env == 'production'
+        espresso.minify() if app.env == 'production'
 
 
       ### watch stylus sources ###
-      espresso.core.exec espresso.core.node_modules_path + 'stylus -w -c styl -o public/css'
+      espresso.exec espresso.node_modules_path + 'stylus -w -c styl -o public/css'
 
 
       ### app routes ###
@@ -53,7 +52,7 @@ tpl =
 
       ### start server ###
       app.listen 3000, ->
-        espresso.core.logEspresso()
+        espresso.logEspresso()
         console.log "Server listening on port %d, %s", app.address().port, app.env
     """
 
@@ -77,22 +76,22 @@ tpl =
         return std
 
       minify: ->
-          fs.readdir 'public/js', (err, data) ->
-            throw err if err
+        fs.readdir 'public/js', (err, data) ->
+          throw err if err
 
-            for f in data
-              ensureIsFile 'public/js/' + f, (f) ->
-                core.exec core.node_modules_path + 'uglifyjs --overwrite ' + f
+          for f in data
+            ensureIsFile 'public/js/' + f, (f) ->
+              core.exec core.node_modules_path + 'uglifyjs --overwrite ' + f
 
       logEspresso: ->
-          console.log " ______                                   "
-          console.log "|  ____|                                  "
-          console.log "| |__   ___ _ __  _ __ ___  ___ ___  ___  "
-          console.log "|  __| / __| \'_ \\| \'__/ _ \\/ __/ __|/ _ \\ "
-          console.log "| |____\\__ \\ |_) | | |  __/\\__ \\__ \\ (_) |"
-          console.log "|______|___/ .__/|_|  \\___||___/___/\\___/ "
-          console.log "           | |                            "
-          console.log "           |_|                            "
+        console.log " ______                                   "
+        console.log "|  ____|                                  "
+        console.log "| |__   ___ _ __  _ __ ___  ___ ___  ___  "
+        console.log "|  __| / __| '_ \\| '__/ _ \\/ __/ __|/ _ \\ "
+        console.log "| |____\\__ \\ |_) | | |  __/\\__ \\__ \\ (_) |"
+        console.log "|______|___/ .__/|_|  \\___||___/___/\\___/ "
+        console.log "           | |                            "
+        console.log "           |_|                            "
 
     exports.core = core
   """
@@ -111,25 +110,43 @@ tpl =
         "stylus": "*",
         "jade": "*",
         "uglify-js": "*"
-        }
+      }
     }
   """
+
   jade:
     index: """
-      h1= title
+      h1 #{title}
+      p Welcome to #{title}
     """
     layout: """
       !!!
       html
         head
-          title= title
+          title #{title}
+          link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Berkshire+Swash&text=ExpresCofBilrplat')
+          link(rel='stylesheet', href='/css/styles.css')
         body!= body
     """
+  styles: """
+    body
+      background-color #ccc
+      padding-top 50px
+      text-align center
+
+    p
+      font-size 24px
+      text-shadow white 1px 1px 1px
+
+    h1
+      font-size 48px
+      font-family 'Berkshire Swash', cursive
+      text-shadow white 0 0 16px, white 0 0 8px, white 0 0 4px
+  """
 
 # helpers
 isFunc = (fn) ->
-  s = Object::toString.call fn
-  s is '[object Function]'
+  Object::toString.call(fn) is '[object Function]'
 
 dirIsEmpty = (path, fn) ->
   fs.readdir path, (err, files) ->
@@ -140,7 +157,7 @@ mkdir = (path, fn) ->
   fs.mkdir path, (err) ->
     throw err if err and err.code != 'EEXIST'
     console.log "  \x1b[33mcreate: #{path}\x1b[0m"
-    fn(path) if isFunc fn
+    fn path if isFunc fn
 
 write = (path, str) ->
   fs.writeFile path, str
@@ -153,9 +170,9 @@ abort = (msg = '') ->
 prompt = (msg, fn) ->
   console.log msg
   process.stdin.setEncoding 'ascii'
-  process.stdin.once('data', (data) ->
+  process.stdin.once 'data', (data) ->
     fn data if isFunc fn
-  ).resume()
+  .resume()
 
 confirm = (msg, fn) ->
   prompt msg, (val) ->
@@ -173,8 +190,9 @@ createAppAt = (path) ->
   mkdir "#{path}/public/js"
 
   mkdir "#{path}/coffee"
-  mkdir "#{path}/styl"
-  mkdir "#{path}/views", () ->
+  mkdir "#{path}/styl", ->
+    write "#{path}/styl/styles.styl", tpl.styles
+  mkdir "#{path}/views", ->
     write "#{path}/views/index.jade", tpl.jade.index
     write "#{path}/views/layout.jade", tpl.jade.layout
     write "#{path}/app.coffee", tpl.app
@@ -183,18 +201,17 @@ createAppAt = (path) ->
 
 help = ->
   '\nUsage: \x1b[36mexpresso\x1b[33m path\x1b[0m\n'
- 
+
 if path == '.'
   console.log help()
   return
 
-# check if the destination path if empty
-# if so create the app structure if not
-# prompt the user to confirm
-#
+# if destination path is empty
+# create the app structure
+# if not prompt the user to confirm
 dirIsEmpty path, (empty) ->
   if empty
-    mkdir path, () ->
+    mkdir path, ->
       createAppAt path
   else
     confirm '  \x1b[36mdirectory is not empty, continue? (y/es)\x1b[0m', (ok) ->
@@ -203,6 +220,3 @@ dirIsEmpty path, (empty) ->
         createAppAt path
       else
         abort '  \x1b[31maborting\x1b[0m'
-
-
-
