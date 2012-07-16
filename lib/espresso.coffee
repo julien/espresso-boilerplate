@@ -19,15 +19,14 @@ tpl =
       ### create express server ###
       app = express.createServer()
 
-
       ### parse args (- coffee and the filename) ###
       ARGV = process.argv[2..]
-      rargs = /-{1,2}\w+/
+      rargs = /-{1,2}\\w+/
       rprod = /-{1,2}(p|production)/
 
       for s in ARGV
         m = rargs.exec s
-        app.settings.env = 'production' if m and m[0] and m[0].match rprod
+        app.env = 'production' if m and m[0] and m[0].match rprod
 
       ### express configuration ###
       app.configure ->
@@ -40,7 +39,7 @@ tpl =
       ### watch coffeescript sources ###
       coffee = espresso.core.exec espresso.core.node_modules_path + 'coffee -o public/js -w -c coffee'
       coffee.stdout.on 'data', (data) ->
-        espresso.core.minify() if app.settings.env == 'production'
+        espresso.core.minify() if app.env == 'production'
 
 
       ### watch stylus sources ###
@@ -55,7 +54,7 @@ tpl =
       ### start server ###
       app.listen 3000, ->
         espresso.core.logEspresso()
-        console.log "Server listening on port %d, %s", app.address().port, app.settings.env
+        console.log "Server listening on port %d, %s", app.address().port, app.env
     """
 
   espresso: """
@@ -183,15 +182,8 @@ createAppAt = (path) ->
     write "#{path}/package.json", tpl.package
 
 help = ->
-  s =  '\n'
-  s += 'Usage: \x1b[36mexpresso\x1b[33m [options] path\x1b[0m'
-  s += '\n'
-  s += 'Options:'
-  s += '\n'
-  s += '\x1b[31m  -p, --production\x1b[0m  Set the app environment to production and minify compiled CoffeeScript'
-  s += '\n'
-  s
-
+  '\nUsage: \x1b[36mexpresso\x1b[33m path\x1b[0m\n'
+ 
 if path == '.'
   console.log help()
   return
