@@ -1,4 +1,8 @@
 {
+  "name": "espresso-boilerplate",
+  "description": "Espresso is a little boilerplate you can use to create Express apps along with CoffeeScript, Jade and Stylus",
+  "version": "0.0.2",
+  "preferGlobal": "true",
   "author": {
     "name": "Julien Castelain",
     "email": "jcastelain@gmail.com",
@@ -7,20 +11,17 @@
   "contributors": [{
     "name": "Julien Castelain",
     "email": "jcastelain@gmail.com",
-    "url": "http://punkscum.org"  
+    "url": "http://punkscum.org"
   }, {
     "name": "Denis Ciccale",
     "email": "dciccale@gmail.com",
     "url": "http://webdecs.wordpress.com/"
   }],
-  "name": "espresso-boilerplate",
-  "description": "Espresso is a little boilerplate you can use to create Express apps along with CoffeeScript, Jade.",
-  "version": "0.0.2",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/julien/espresso-boilerplate.git"
-  },
+  "license": "MIT",
+  "repository": "git://github.com/julien/espresso-boilerplate.git",
   "keywords": [
+    "espresso",
+    "boilerplate",
     "coffeescript",
     "express",
     "jade",
@@ -31,7 +32,6 @@
   "bin": {
     "espresso": "./bin/espresso"
   },
-  "preferGlobal": "true",
   "scripts": {
     "prepublish": "npm prune"
   },
@@ -41,7 +41,5 @@
   "engines": {
     "node": "*"
   },
-  "devDependencies": {},
-  "optionalDependencies": {},
-  "homepage": "http://www.espressoboilerplate.org"
+  "homepage": "http://espressoboilerplate.org"
 }
