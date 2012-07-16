@@ -140,12 +140,12 @@ dirIsEmpty = (path, fn) ->
 mkdir = (path, fn) ->
   fs.mkdir path, (err) ->
     throw err if err and err.code != 'EEXIST'
-    console.log "  create: #{path}"
+    console.log "  \x1b[33mcreate: #{path}\x1b[0m"
     fn(path) if isFunc fn
 
 write = (path, str) ->
   fs.writeFile path, str
-  console.log "  create: #{path}"
+  console.log "  \x1b[33mcreate: #{path}\x1b[0m"
 
 abort = (msg = '') ->
   console.error msg if msg
@@ -165,7 +165,7 @@ confirm = (msg, fn) ->
 createAppAt = (path) ->
   process.on 'exit', () ->
     console.log ''
-    console.log "  dont forget to run cd #{path} && npm install"
+    console.log "  \x1b[36mdont forget to run cd #{path} && npm install\x1b[0m"
     console.log ''
 
   mkdir "#{path}/public"
@@ -182,16 +182,19 @@ createAppAt = (path) ->
     write "#{path}/espresso.coffee", tpl.espresso
     write "#{path}/package.json", tpl.package
 
-printhelp = ->
-  console.log ''
-  console.log 'usage espresso "app name"'
-  console.log ''
-
+help = ->
+  s =  '\n'
+  s += 'Usage: \x1b[36mexpresso\x1b[33m [options] path\x1b[0m'
+  s += '\n'
+  s += 'Options:'
+  s += '\n'
+  s += '\x1b[31m  -p, --production\x1b[0m  Set the app environment to production and minify compiled CoffeeScript'
+  s += '\n'
+  s
 
 if path == '.'
-  printhelp()
+  console.log help()
   return
-
 
 # check if the destination path if empty
 # if so create the app structure if not
@@ -202,12 +205,12 @@ dirIsEmpty path, (empty) ->
     mkdir path, () ->
       createAppAt path
   else
-    confirm '  directory is not empty, continue? (y/es)', (ok) ->
+    confirm '  \x1b[36mdirectory is not empty, continue? (y/es)\x1b[0m', (ok) ->
       if ok
         process.stdin.destroy()
         createAppAt path
       else
-        abort '  aborting'
+        abort '  \x1b[31maborting\x1b[0m'
 
 
 
