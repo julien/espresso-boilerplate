@@ -1,7 +1,5 @@
 ### require modules ###
 express = require 'express'
-# we need to load path to make express.static work
-path = require 'path'
 espresso = require './espresso.coffee'
 
 ### create express server ###
@@ -22,8 +20,7 @@ app.configure ->
   app.set 'views', __dirname + '/views'
   app.set 'view engine', 'jade'
   app.use express.bodyParser()
-# app.use express.static __dirname + '/public'
-  app.use express.static path.join __dirname + '/public'
+  app.use express.static __dirname + '/public'
 
 
 ### watch coffeescript sources ###
