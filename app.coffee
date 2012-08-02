@@ -3,8 +3,8 @@ express = require 'express'
 espresso = require './espresso.coffee'
 
 ### create express server ###
-app = express.createServer()
-
+# app = express.createServer()
+app = express()
 
 ### parse args (- coffee and the filename) ###
 ARGV = process.argv[2..]
@@ -41,5 +41,6 @@ app.get '/', (req, res) ->
 ### start server ###
 app.listen 3000, ->
   espresso.core.logEspresso()
-  console.log "Server listening on port %d", app.address().port
+# console.log "Server listening on port %d", app.address().port
+  console.log "Server listening on port 3000"
 
