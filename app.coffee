@@ -1,10 +1,12 @@
 ### require modules ###
 express = require 'express'
+# we need to load path to make express.static work
+path = require 'path'
 espresso = require './espresso.coffee'
 
 ### create express server ###
-app = express.createServer()
-
+# app = express.createServer()
+app = express()
 
 ### parse args (- coffee and the filename) ###
 ARGV = process.argv[2..]
@@ -20,7 +22,8 @@ app.configure ->
   app.set 'views', __dirname + '/views'
   app.set 'view engine', 'jade'
   app.use express.bodyParser()
-  app.use express.static __dirname + '/public'
+# app.use express.static __dirname + '/public'
+  app.use express.static path.join __dirname + '/public'
 
 
 ### watch coffeescript sources ###
@@ -41,5 +44,6 @@ app.get '/', (req, res) ->
 ### start server ###
 app.listen 3000, ->
   espresso.core.logEspresso()
-  console.log "Server listening on port %d", app.address().port
+# console.log "Server listening on port %d", app.address().port
+  console.log "Server listening on port 3000"
 
